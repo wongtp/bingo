@@ -1,109 +1,144 @@
 <!DOCTYPE>
 <html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title>年会名单</title>
-		<style>
-			*{margin:0;padding:0;}
-			.box{width:100%;text-align:center;}
-			.start,.stop {
-				width:150px;
-				height:60px;
-				line-height:60px;
-				text-align:center;
-				font-size:32px;
-				border-radius:10px;
-				margin:auto;
-				color:#ffffff;
-				cursor: pointer;
-			}
-			.start{background: #24ADD7;}
-			.stop{background: #FC6666;}
-			.nameContainer {
-				width:100%;
-				padding-top: 220px;
-			}
-			
-			.nameContainer p {
-				line-height:30px;
-				text-align:left;
-				txt-align:justify;
-				line-height:1.5;
-			}
-			.nameContainer .list {
-				font-size:50px;
-				font-weight:900;
-				width: 400px;
-				margin: auto;
-			    -webkit-background-clip: text;/*按文字裁剪*/
-			    -webkit-text-fill-color: transparent;/*文字的颜色使用背景色*/
-			    background-color:yellow; /*设置一个背景色*/
-			    background-image: -webkit-linear-gradient(-45deg, rgba(0, 0, 0, 0.6) 30%, #aff0ff 50%, rgba(0, 0, 0, 0.6) 60%);          /*设置渐变的背景，按对角线渐变*/
-			    background-blend-mode: hard-light; /*设置背景为混合模式下的强光模式*/
-			    background-size: 200%;
-			    -webkit-animation: shine 4s infinite;/*给背景添加动画改变位置*/
-			}
-			@-webkit-keyframes shine {
-			    from {background-position: 100%;}
-			    to {background-position: 0;}
-			}
-		</style>
-	</head>
 
-	<body background="resource/bg.jpg">
-		<div class="box">
-			<div class="bingoContainer">
-				<p><h1 style="font-size: 90px;padding-top: 100px;color: white;">2018年会抽奖</h1></p>
-				<p><h1 style="font-size: 60px;color: aquamarine;" class="name"><br></h1></p><br>
-				<div class="start" id="btntxt" onclick="start()">开始</div>
-			</div>
-			<div class="nameContainer">
-				<div class="top"> </div>
-				<div class="list">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>年会名单</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
 
-				</div>
+		.box {
+			width: 100%;
+			text-align: center;
+		}
+
+		.start,
+		.stop {
+			width: 150px;
+			height: 60px;
+			line-height: 60px;
+			text-align: center;
+			font-size: 32px;
+			border-radius: 10px;
+			margin: auto;
+			color: #ffffff;
+			cursor: pointer;
+		}
+
+		.start {
+			background: #24ADD7;
+		}
+
+		.stop {
+			background: #FC6666;
+		}
+
+		.nameContainer {
+			width: 100%;
+			padding-top: 220px;
+		}
+
+		.nameContainer p {
+			line-height: 30px;
+			text-align: left;
+			txt-align: justify;
+			line-height: 1.5;
+		}
+
+		.nameContainer .list {
+			font-size: 50px;
+			font-weight: 900;
+			width: 400px;
+			margin: auto;
+			-webkit-background-clip: text;
+			/*按文字裁剪*/
+			-webkit-text-fill-color: transparent;
+			/*文字的颜色使用背景色*/
+			background-color: yellow;
+			/*设置一个背景色*/
+			background-image: -webkit-linear-gradient(-45deg, rgba(0, 0, 0, 0.6) 30%, #aff0ff 50%, rgba(0, 0, 0, 0.6) 60%);
+			/*设置渐变的背景，按对角线渐变*/
+			background-blend-mode: hard-light;
+			/*设置背景为混合模式下的强光模式*/
+			background-size: 200%;
+			-webkit-animation: shine 4s infinite;
+			/*给背景添加动画改变位置*/
+		}
+
+		@-webkit-keyframes shine {
+			from {
+				background-position: 100%;
+			}
+
+			to {
+				background-position: 0;
+			}
+		}
+	</style>
+</head>
+
+<body background="resource/bg.jpg">
+	<div class="box">
+		<div class="bingoContainer">
+			<p>
+			<h1 style="font-size: 90px;padding-top: 100px;color: white;">2018年会抽奖</h1>
+			</p>
+			<p>
+			<h1 style="font-size: 60px;color: aquamarine;" class="name"><br></h1>
+			</p><br>
+			<div class="start" id="btntxt" onclick="start()">开始</div>
+		</div>
+		<div class="nameContainer">
+			<div class="top"> </div>
+			<div class="list">
+
 			</div>
 		</div>
-		<script src="resource/jquery.min.js"></script>
-		<script type="text/javascript">
-			var names = ["张三",  "李四", "王五", "赵六", "钱七", "煮八"];
-			var runing = true;
-			var index = 0;
-			var currentBingoIndex = 0; //当前抽中的人的索引
-			var timeout;
-		
-			//开始/停止
-			function start() {
-				if (runing) {
-					runing = false;
-					$('#btntxt').removeClass('start').addClass('stop');
-					$('#btntxt').html('停止');
-					jumName();
-				} else {
-					runing = true;
-					$('#btntxt').removeClass('stop').addClass('start');
-					$('#btntxt').html('开始');
-					stopJumName();
-					printName(); //
-				}
+	</div>
+	<script src="resource/jquery.min.js"></script>
+	<script type="text/javascript">
+		var names = ["张三", "李四", "王五", "赵六", "钱七", "煮八"];
+		var runing = true;
+		var index = 0;
+		var currentBingoIndex = 0; //当前抽中的人的索引
+		var timeout;
+
+		//开始/停止
+		function start() {
+			if (runing) {
+				runing = false;
+				$('#btntxt').removeClass('start').addClass('stop');
+				$('#btntxt').html('停止');
+				jumName();
+			} else {
+				runing = true;
+				$('#btntxt').removeClass('stop').addClass('start');
+				$('#btntxt').html('开始');
+				stopJumName();
+				printName(); //
 			}
-			//停止跳动
-			function stopJumName() {
-				clearInterval(timeout);
-				timeout = 0;
-			}
-			//名单跳动
-			function jumName() {
-				currentBingoIndex = Math.floor(Math.random() * (names.length - 1));
-				$('.name').html(names[currentBingoIndex]);
-				timeout = setTimeout(jumName, 80);
-			}
-			//打印中奖名
-			function printName() {
-				$('.list').prepend("<p>" + (++index) + '号佳丽：' + names[currentBingoIndex] + "</p>");
-				//将已中奖者从数组中"删除",防止二次中奖
-				names.splice($.inArray(names[currentBingoIndex], names), 1);
-			}
-		</script>
-	</body>
+		}
+		//停止跳动
+		function stopJumName() {
+			clearInterval(timeout);
+			timeout = 0;
+		}
+		//名单跳动
+		function jumName() {
+			currentBingoIndex = Math.floor(Math.random() * (names.length - 1));
+			$('.name').html(names[currentBingoIndex]);
+			timeout = setTimeout(jumName, 80);
+		}
+		//打印中奖名
+		function printName() {
+			$('.list').prepend("<p>" + (++index) + '号佳丽：' + names[currentBingoIndex] + "</p>");
+			//将已中奖者从数组中"删除",防止二次中奖
+			names.splice($.inArray(names[currentBingoIndex], names), 1);
+		}
+	</script>
+</body>
+
 </html>
